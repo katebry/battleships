@@ -7,8 +7,14 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', () => {
+io.on('connection', (socket) => {
     console.log('someone connected!')
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
 });
 
 server.listen(port, () => {
