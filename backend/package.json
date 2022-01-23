@@ -8,7 +8,7 @@
   },
   "name": "battleships-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "OLD.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server",
