@@ -1,6 +1,6 @@
 # battleships
 
-###idea:
+##idea:
 
 use node, express, socket.io on the backend
 
