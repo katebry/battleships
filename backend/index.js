@@ -25,7 +25,7 @@ io.on("connection", socket => {
     socket.emit("position", position);
 
     if (io.engine.clientsCount > connectionLimit) {
-        socket.emit('err', { message: 'reach the limit of connections' })
+        socket.emit('err', { message: 'reached the limit of connections' })
         socket.disconnect()
         console.log('Disconnected... reached the limit of connections')
         return
@@ -33,6 +33,14 @@ io.on("connection", socket => {
 
     console.log('A user connected: ' + socket.id);
     players.push(socket.id);
+
+    socket.on("newUserName", data => {
+        const id = socket.id
+        const playerObject = {id: socket.id, username: data}
+        players.push(playerObject);
+        console.log(players)
+    })
+
     socket.on("move", data => {
         switch(data) {
             case "left":
@@ -53,6 +61,7 @@ io.on("connection", socket => {
                 break;
         }
     });
+
     socket.on('disconnect', () => {
         console.log('user disconnected');
         players = players.filter(player => player !== socket.id);
