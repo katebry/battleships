@@ -2,6 +2,9 @@ const express = require("express")();
 const cors = require("cors");
 const httpServer = require("http").Server(express);
 
+const connectionLimit = 2
+let players = []
+
 const io = require("socket.io")(httpServer, {
     cors: {
         origin: "http://localhost:8080",
@@ -20,6 +23,16 @@ httpServer.listen(3000, () => {
 
 io.on("connection", socket => {
     socket.emit("position", position);
+
+    if (io.engine.clientsCount > connectionLimit) {
+        socket.emit('err', { message: 'reach the limit of connections' })
+        socket.disconnect()
+        console.log('Disconnected... reached the limit of connections')
+        return
+    }
+
+    console.log('A user connected: ' + socket.id);
+    players.push(socket.id);
     socket.on("move", data => {
         switch(data) {
             case "left":
@@ -39,6 +52,10 @@ io.on("connection", socket => {
                 io.emit("position", position);
                 break;
         }
+    });
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+        players = players.filter(player => player !== socket.id);
     });
 });
 
