@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-
     <BlockGame/>
   </div>
 </template>
@@ -17,7 +16,14 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+* {
+  font-family: 'Noto Sans', sans-serif;
+}
+
 body {
-  background-color: #95D7AE;
+  background-color: #60435F;
 }
 </style>

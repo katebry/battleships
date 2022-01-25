@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="playerName"><h2>Hello {{playerName}}</h2></div>
+    <div class="title" v-if="playerName"><h2>Hello {{playerName}}</h2></div>
     <canvas ref="game" width="640" height="480" style="border: 1px solid black;"></canvas>
     <p>
       <button v-on:click="move('right')">Right</button>
@@ -60,4 +60,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.title {
+  color: #FDF7FA;
+}
+</style>
